@@ -22,4 +22,18 @@ public class GaussianMutation extends MutationFunction
     return 0;
   }
 
+  @Override
+  public int getTotalIterations()
+  {
+    // TODO Auto-generated method stub
+    return 0;
+  }
+
+  @Override
+  public void setTotalIterations(int iterations)
+  {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

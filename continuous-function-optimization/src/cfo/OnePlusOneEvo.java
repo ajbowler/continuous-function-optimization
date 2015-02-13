@@ -4,15 +4,48 @@ public class OnePlusOneEvo implements OptimizationFunction
 {
   private MutationFunction mutator;
 
-  public OnePlusOneEvo(MutationFunction mutator)
+  private int iterations;
+
+  private int dimensions;
+
+  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions)
   {
     this.mutator = mutator;
+    this.iterations = iterations;
+    this.dimensions = dimensions;
   }
 
   @Override
   public void getSolution()
   {
+    int[] x = new int[getDimensions()];
+    int fOfX;
+    for (int i = 0; i < x.length; i++)
+    {
+      x[i] = OptimizationFunction.rng.getRandomNumber();
+    }
 
+    for (int i = 0; i < getTotalIterations(); i++)
+    {
+      int[] y = new int[getDimensions()];
+      for (int j = 0; j < y.length; j++)
+      {
+        y[j] = getMutator().mutate(x[j]);
+        
+        SphereFunction f = new SphereFunction(getDimensions());
+        int newFOfY = f.computeFitness(y);
+        int newFOfX = f.computeFitness(x);
+        
+        if(newFOfY < newFOfX)
+        {
+          x = y;
+          fOfX = newFOfX;
+        }
+      }
+    }
+    
+    // TODO: output results to file.
+    
   }
 
   public MutationFunction getMutator()
@@ -25,4 +58,25 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.mutator = mutator;
   }
 
+  @Override
+  public int getTotalIterations()
+  {
+    return iterations;
+  }
+
+  @Override
+  public void setTotalIterations(int iterations)
+  {
+    this.iterations = iterations;
+  }
+
+  public int getDimensions()
+  {
+    return dimensions;
+  }
+
+  public void setDimensions(int dimensions)
+  {
+    this.dimensions = dimensions;
+  }
 }

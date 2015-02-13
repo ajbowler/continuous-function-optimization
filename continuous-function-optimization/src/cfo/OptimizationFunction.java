@@ -2,7 +2,11 @@ package cfo;
 
 public interface OptimizationFunction
 {
-  public static final int ITERATIONS = 5000;
-  
+  public static final TimeRNG rng = new TimeRNG();
+
   public void getSolution();
+  
+  public int getTotalIterations();
+  
+  public void setTotalIterations(int iterations);
 }
