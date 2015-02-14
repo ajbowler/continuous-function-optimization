@@ -29,24 +29,20 @@ public class OnePlusOneEvo implements OptimizationFunction
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
-      int[] y = new int[getDimensions()];
-      for (int j = 0; j < y.length; j++)
+      int[] y = getMutator().mutate(x);
+      
+      int newFOfY = f.computeFitness(y);
+      int newFOfX = f.computeFitness(x);
+
+      if (newFOfY < newFOfX)
       {
-        y[j] = getMutator().mutate(x[j]);
-
-        int newFOfY = f.computeFitness(y);
-        int newFOfX = f.computeFitness(x);
-
-        if (newFOfY < newFOfX)
-        {
-          x = y;
-          fOfX = newFOfX;
-        }
+        x = y;
+        fOfX = newFOfX;
       }
     }
 
     // TODO: output results to file.
-    System.out.println(fOfX);
+    System.out.println(x + ", " + fOfX);
   }
 
   public MutationFunction getMutator()

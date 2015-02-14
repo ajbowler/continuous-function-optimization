@@ -7,7 +7,7 @@ public abstract class MutationFunction implements OptimizationFunction
   @Override
   public abstract void getSolution();
 
-  public abstract int mutate(int parent);
+  public abstract int[] mutate(int[] x);
 
   @Override
   public int getTotalIterations()

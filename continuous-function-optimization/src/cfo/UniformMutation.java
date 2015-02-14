@@ -11,14 +11,13 @@ public class UniformMutation extends MutationFunction
   @Override
   public void getSolution()
   {
-    // TODO Auto-generated method stub
-
+    // do nothing
   }
 
   @Override
-  public int mutate(int parent)
+  public int[] mutate(int[] parent)
   {
-    // TODO Auto-generated method stub
-    return 0;
+    
+    return null;
   }
 }

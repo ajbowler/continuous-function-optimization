@@ -16,9 +16,9 @@ public class NonUniformMutation extends MutationFunction
   }
 
   @Override
-  public int mutate(int parent)
+  public int[] mutate(int[] parent)
   {
     // TODO Auto-generated method stub
-    return 0;
+    return null;
   }
 }
