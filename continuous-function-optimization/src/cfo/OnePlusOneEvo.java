@@ -19,11 +19,13 @@ public class OnePlusOneEvo implements OptimizationFunction
   public void getSolution()
   {
     int[] x = new int[getDimensions()];
-    int fOfX;
+    SphereFunction f = new SphereFunction(getDimensions());
     for (int i = 0; i < x.length; i++)
     {
       x[i] = OptimizationFunction.rng.getRandomNumber();
     }
+
+    int fOfX = f.computeFitness(x);
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
@@ -31,21 +33,20 @@ public class OnePlusOneEvo implements OptimizationFunction
       for (int j = 0; j < y.length; j++)
       {
         y[j] = getMutator().mutate(x[j]);
-        
-        SphereFunction f = new SphereFunction(getDimensions());
+
         int newFOfY = f.computeFitness(y);
         int newFOfX = f.computeFitness(x);
-        
-        if(newFOfY < newFOfX)
+
+        if (newFOfY < newFOfX)
         {
           x = y;
           fOfX = newFOfX;
         }
       }
     }
-    
+
     // TODO: output results to file.
-    
+    System.out.println(fOfX);
   }
 
   public MutationFunction getMutator()

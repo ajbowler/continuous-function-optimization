@@ -3,9 +3,9 @@ package cfo;
 public class GaussianMutation extends MutationFunction
 {
 
-  public GaussianMutation()
+  public GaussianMutation(int iterations)
   {
-    // TODO Auto-generated constructor stub
+    this.iterations = iterations;
   }
 
   @Override
@@ -21,19 +21,4 @@ public class GaussianMutation extends MutationFunction
     // TODO Auto-generated method stub
     return 0;
   }
-
-  @Override
-  public int getTotalIterations()
-  {
-    // TODO Auto-generated method stub
-    return 0;
-  }
-
-  @Override
-  public void setTotalIterations(int iterations)
-  {
-    // TODO Auto-generated method stub
-    
-  }
-
 }
