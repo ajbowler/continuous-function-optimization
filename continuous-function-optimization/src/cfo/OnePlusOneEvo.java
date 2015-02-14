@@ -22,7 +22,7 @@ public class OnePlusOneEvo implements OptimizationFunction
     SphereFunction f = new SphereFunction(getDimensions());
     for (int i = 0; i < x.length; i++)
     {
-      x[i] = OptimizationFunction.rng.getRandomNumber();
+      x[i] = OptimizationFunction.rng.getRandomNumberLargeInterval();
     }
 
     int fOfX = f.computeFitness(x);

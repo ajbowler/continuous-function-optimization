@@ -19,7 +19,7 @@ public class TimeRNG
    * @return A pseudorandom number calculated by taking the modulo of the
    *         current time by 201 to fit the [-100, 100] interval.
    */
-  public int getRandomNumber()
+  public int getRandomNumberLargeInterval()
   {
     long currentTime = System.currentTimeMillis();
     int result = (int) (currentTime % 201);
@@ -27,5 +27,16 @@ public class TimeRNG
       return result;
     else
       return (result * -1);
+  }
+
+  /**
+   * 
+   * @return A pseudorandom number calculated by taking the modulo of the
+   *         current time by the length of the array.
+   */
+  public int getRandomIndex(int[] arr)
+  {
+    long currentTime = System.currentTimeMillis();
+    return (int) (currentTime % arr.length);
   }
 }

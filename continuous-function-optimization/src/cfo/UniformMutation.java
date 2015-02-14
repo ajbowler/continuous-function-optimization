@@ -17,7 +17,8 @@ public class UniformMutation extends MutationFunction
   @Override
   public int[] mutate(int[] parent)
   {
-    
-    return null;
+    int index = OptimizationFunction.rng.getRandomIndex(parent);
+    parent[index] = OptimizationFunction.rng.getRandomNumberLargeInterval();
+    return parent;
   }
 }
