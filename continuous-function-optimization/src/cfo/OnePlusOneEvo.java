@@ -18,19 +18,15 @@ public class OnePlusOneEvo implements OptimizationFunction
   @Override
   public void getSolution()
   {
-    int[] x = new int[getDimensions()];
     SphereFunction f = new SphereFunction(getDimensions());
-    for (int i = 0; i < x.length; i++)
-    {
-      x[i] = OptimizationFunction.rng.getRandomNumberLargeInterval();
-    }
+    int[] x = generateInitialSearchPoint(getDimensions());
 
     int fOfX = f.computeFitness(x);
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
       int[] y = getMutator().mutate(x);
-      
+
       int newFOfY = f.computeFitness(y);
       int newFOfX = f.computeFitness(x);
 
@@ -75,5 +71,16 @@ public class OnePlusOneEvo implements OptimizationFunction
   public void setDimensions(int dimensions)
   {
     this.dimensions = dimensions;
+  }
+
+  protected int[] generateInitialSearchPoint(int dimensions)
+  {
+    int[] x = new int[getDimensions()];
+    for (int i = 0; i < x.length; i++)
+    {
+      x[i] = OptimizationFunction.rng.getRandomNumberLargeInterval();
+    }
+
+    return x;
   }
 }

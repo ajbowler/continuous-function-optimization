@@ -2,9 +2,9 @@ package cfo;
 
 public class GaussianMutation extends MutationFunction
 {
-  private double stepSize;
+  private int stepSize;
 
-  public GaussianMutation(int iterations, double stepSize)
+  public GaussianMutation(int iterations, int stepSize)
   {
     this.iterations = iterations;
     this.stepSize = stepSize;
@@ -24,12 +24,12 @@ public class GaussianMutation extends MutationFunction
     return null;
   }
 
-  public double getStepSize()
+  public int getStepSize()
   {
     return stepSize;
   }
 
-  public void setStepSize(double stepSize)
+  public void setStepSize(int stepSize)
   {
     this.stepSize = stepSize;
   }
