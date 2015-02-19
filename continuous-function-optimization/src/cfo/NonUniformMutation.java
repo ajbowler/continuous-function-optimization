@@ -6,10 +6,10 @@ public class NonUniformMutation extends MutationFunction
 
   private double b;
 
-  public NonUniformMutation(int iterations, int currentIteration, double b)
+  public NonUniformMutation(int iterations, double b)
   {
     this.iterations = iterations;
-    this.currentIteration = currentIteration;
+    this.currentIteration = 0;
     this.b = b;
   }
 

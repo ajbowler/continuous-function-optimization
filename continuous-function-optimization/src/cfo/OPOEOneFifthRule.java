@@ -1,24 +1,28 @@
 package cfo;
 
-public class OPOEOneFifthRule extends MutationFunction
+public class OPOEOneFifthRule extends OnePlusOneEvo
 {
+  private double stepSize;
 
-  public OPOEOneFifthRule(int iterations)
+  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, double stepSize)
   {
-    this.iterations = iterations;
+    super(mutator, dimensions, dimensions);
+    this.stepSize = stepSize;
   }
 
   @Override
   public void getSolution()
   {
     // TODO Auto-generated method stub
-
   }
 
-  @Override
-  public int[] mutate(int[] parent)
+  public double getStepSize()
   {
-    // TODO Auto-generated method stub
-    return null;
+    return stepSize;
+  }
+
+  public void setStepSize(double stepSize)
+  {
+    this.stepSize = stepSize;
   }
 }

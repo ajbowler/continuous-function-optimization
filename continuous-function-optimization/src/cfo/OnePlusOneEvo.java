@@ -2,11 +2,11 @@ package cfo;
 
 public class OnePlusOneEvo implements OptimizationFunction
 {
-  private MutationFunction mutator;
+  protected MutationFunction mutator;
 
-  private int iterations;
+  protected int iterations;
 
-  private int dimensions;
+  protected int dimensions;
 
   public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions)
   {

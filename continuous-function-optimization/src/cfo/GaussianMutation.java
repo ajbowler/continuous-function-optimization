@@ -2,10 +2,12 @@ package cfo;
 
 public class GaussianMutation extends MutationFunction
 {
+  private double stepSize;
 
-  public GaussianMutation(int iterations)
+  public GaussianMutation(int iterations, double stepSize)
   {
     this.iterations = iterations;
+    this.stepSize = stepSize;
   }
 
   @Override
@@ -20,5 +22,15 @@ public class GaussianMutation extends MutationFunction
   {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public double getStepSize()
+  {
+    return stepSize;
+  }
+
+  public void setStepSize(double stepSize)
+  {
+    this.stepSize = stepSize;
   }
 }
