@@ -5,7 +5,10 @@ public abstract class MutationFunction implements OptimizationFunction
   protected int iterations;
 
   @Override
-  public abstract void getSolution();
+  public void getSolution()
+  {
+    // do nothing
+  }
 
   public abstract int[] mutate(int[] x);
 
@@ -19,5 +22,13 @@ public abstract class MutationFunction implements OptimizationFunction
   public void setTotalIterations(int iterations)
   {
     this.iterations = iterations;
+  }
+  
+  protected int round(double result)
+  {
+    if (result - Math.floor(result) > Math.ceil(result) - result)
+      return (int) Math.ceil(result);
+    else
+      return (int) Math.floor(result);
   }
 }

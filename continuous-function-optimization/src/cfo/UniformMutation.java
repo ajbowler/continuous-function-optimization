@@ -9,12 +9,6 @@ public class UniformMutation extends MutationFunction
   }
 
   @Override
-  public void getSolution()
-  {
-    // do nothing
-  }
-
-  @Override
   public int[] mutate(int[] parent)
   {
     int index = OptimizationFunction.rng.getRandomIndex(parent);

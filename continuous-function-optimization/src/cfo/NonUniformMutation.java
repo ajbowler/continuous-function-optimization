@@ -14,13 +14,6 @@ public class NonUniformMutation extends MutationFunction
   }
 
   @Override
-  public void getSolution()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public int[] mutate(int[] parent)
   {
     int index = OptimizationFunction.rng.getRandomIndex(parent);
@@ -69,14 +62,6 @@ public class NonUniformMutation extends MutationFunction
     delta = y * Math.pow(secondPart, b);
     double result = old + delta;
     return round(result);
-  }
-
-  private int round(double result)
-  {
-    if (result - Math.floor(result) > Math.ceil(result) - result)
-      return (int) Math.ceil(result);
-    else
-      return (int) Math.floor(result);
   }
 
   private int getR()

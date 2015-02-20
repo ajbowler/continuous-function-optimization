@@ -1,5 +1,7 @@
 package cfo;
 
+import java.util.Random;
+
 public class GaussianMutation extends MutationFunction
 {
   private int stepSize;
@@ -11,17 +13,15 @@ public class GaussianMutation extends MutationFunction
   }
 
   @Override
-  public void getSolution()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public int[] mutate(int[] parent)
   {
-    // TODO Auto-generated method stub
-    return null;
+    Random random = new Random();
+    for (int i = 0; i < parent.length; i++)
+    {
+      int mutationValue = this.round(getStepSize() * random.nextGaussian());
+      parent[i] = parent[i] + mutationValue;
+    }
+    return parent;
   }
 
   public int getStepSize()
