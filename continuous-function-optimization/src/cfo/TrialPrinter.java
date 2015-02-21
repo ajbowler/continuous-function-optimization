@@ -1,35 +1,69 @@
 package cfo;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class TrialPrinter
 {
-  public TrialPrinter()
-  {
+  private String timeStamp;
 
+  private OnePlusOneEvo function;
+
+  private File file;
+
+  public TrialPrinter(OnePlusOneEvo function)
+  {
+    setTimeStamp();
+    this.function = function;
+    this.file = generateTrialFile(function);
   }
 
-  public void writeTrial(OnePlusOneEvo function)
+  public void writeTrial(String x, String fitnessValue)
   {
-    File file = generateTrialFile(function);
+    FileWriter writer;
+    try
+    {
+      writer = new FileWriter(file);
+      writer.write(x + "    " + fitnessValue + "\n");
+      writer.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
-  public String getCurrentTimeStamp()
+  public OnePlusOneEvo getFunction()
   {
-    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH:mm:ss");// dd/MM/yyyy
+    return function;
+  }
+
+  public void setFunction(OnePlusOneEvo function)
+  {
+    this.function = function;
+  }
+
+  public String getTimeStamp()
+  {
+    return timeStamp;
+  }
+
+  public void setTimeStamp()
+  {
+    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH:mm:ss");
     Date now = new Date();
     String strDate = sdfDate.format(now);
-    return strDate;
+    this.timeStamp = strDate;
   }
 
   private File generateTrialFile(OnePlusOneEvo function)
   {
-    String path = "trials/";
-    String timeStamp = getCurrentTimeStamp();
-    String mutation = function.getMutator().getClass().getSimpleName();
-    String filename = path + timeStamp + " " + mutation + ".txt";
+    String path = "trials/" + function.getMutator().getClass().getSimpleName() + "/";
+    String timeStamp = getTimeStamp();
+    String filename = path + timeStamp + ".txt";
 
     return new File(filename);
   }

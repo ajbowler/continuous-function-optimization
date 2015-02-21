@@ -4,15 +4,19 @@ public class OnePlusOneEvo implements OptimizationFunction
 {
   protected MutationFunction mutator;
 
+  protected TrialPrinter trialPrinter;
+
   protected int iterations;
 
   protected int dimensions;
 
-  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions)
+  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions,
+      TrialPrinter trialPrinter)
   {
     this.mutator = mutator;
     this.iterations = iterations;
     this.dimensions = dimensions;
+    this.trialPrinter = trialPrinter;
   }
 
   @Override
@@ -35,10 +39,9 @@ public class OnePlusOneEvo implements OptimizationFunction
         x = y;
         fOfX = newFOfX;
       }
-    }
 
-    // TODO: output results to file.
-    System.out.println(x + ", " + fOfX);
+      getTrialPrinter().writeTrial(x.toString(), Integer.toString(fOfX));
+    }
   }
 
   public MutationFunction getMutator()
@@ -71,6 +74,16 @@ public class OnePlusOneEvo implements OptimizationFunction
   public void setDimensions(int dimensions)
   {
     this.dimensions = dimensions;
+  }
+
+  public TrialPrinter getTrialPrinter()
+  {
+    return trialPrinter;
+  }
+
+  public void setTrialPrinter(TrialPrinter trialPrinter)
+  {
+    this.trialPrinter = trialPrinter;
   }
 
   protected int[] generateInitialSearchPoint(int dimensions)
