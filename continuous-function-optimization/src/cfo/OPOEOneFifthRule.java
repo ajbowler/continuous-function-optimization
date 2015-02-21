@@ -4,11 +4,11 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
 {
   private int stepSize;
 
-  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, int stepSize,
-      TrialPrinter trialPrinter)
+  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, int stepSize)
   {
-    super(mutator, dimensions, dimensions, trialPrinter);
+    super(mutator, dimensions, dimensions);
     this.stepSize = stepSize;
+    this.trialPrinter = new TrialPrinter(this);
   }
 
   @Override

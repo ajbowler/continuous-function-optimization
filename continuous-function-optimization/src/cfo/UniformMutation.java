@@ -12,7 +12,7 @@ public class UniformMutation extends MutationFunction
   public int[] mutate(int[] parent)
   {
     int index = OptimizationFunction.rng.getRandomIndex(parent);
-    parent[index] = OptimizationFunction.rng.getRandomNumberLargeInterval();
+    parent[index] = OptimizationFunction.rng.randInt(-100, 100);
     return parent;
   }
 }

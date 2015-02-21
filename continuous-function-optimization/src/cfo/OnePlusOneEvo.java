@@ -1,5 +1,8 @@
 package cfo;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class OnePlusOneEvo implements OptimizationFunction
 {
   protected MutationFunction mutator;
@@ -9,14 +12,16 @@ public class OnePlusOneEvo implements OptimizationFunction
   protected int iterations;
 
   protected int dimensions;
+  
+  private Random random;
 
-  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions,
-      TrialPrinter trialPrinter)
+  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions)
   {
     this.mutator = mutator;
     this.iterations = iterations;
     this.dimensions = dimensions;
-    this.trialPrinter = trialPrinter;
+    this.trialPrinter = new TrialPrinter(this);
+    setRandom(new Random());
   }
 
   @Override
@@ -31,16 +36,15 @@ public class OnePlusOneEvo implements OptimizationFunction
     {
       int[] y = getMutator().mutate(x);
 
-      int newFOfY = f.computeFitness(y);
-      int newFOfX = f.computeFitness(x);
+      int fOfY = f.computeFitness(y);
 
-      if (newFOfY < newFOfX)
+      if (fOfY < fOfX)
       {
         x = y;
-        fOfX = newFOfX;
+        fOfX = fOfY;
       }
 
-      getTrialPrinter().writeTrial(x.toString(), Integer.toString(fOfX));
+      getTrialPrinter().writeTrial(Arrays.toString(x), Integer.toString(fOfX));
     }
   }
 
@@ -86,12 +90,22 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.trialPrinter = trialPrinter;
   }
 
+  public Random getRandom()
+  {
+    return random;
+  }
+
+  public void setRandom(Random random)
+  {
+    this.random = random;
+  }
+
   protected int[] generateInitialSearchPoint(int dimensions)
   {
     int[] x = new int[getDimensions()];
     for (int i = 0; i < x.length; i++)
     {
-      x[i] = OptimizationFunction.rng.getRandomNumberLargeInterval();
+      x[i] = OptimizationFunction.rng.randInt(-100, 100);
     }
 
     return x;

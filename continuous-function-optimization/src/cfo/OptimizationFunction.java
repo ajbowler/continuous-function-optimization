@@ -1,8 +1,10 @@
 package cfo;
 
+import java.util.Random;
+
 public interface OptimizationFunction
 {
-  public static final TimeRNG rng = new TimeRNG();
+  public static final TimeRNG rng = new TimeRNG(new Random());
 
   public void getSolution();
   

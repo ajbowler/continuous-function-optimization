@@ -1,4 +1,6 @@
 trials/
+*.txt
+Main.java
 
 ############
 ### Java ###

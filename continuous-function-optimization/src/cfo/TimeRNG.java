@@ -1,42 +1,36 @@
 package cfo;
 
-/**
- * This is a pseudorandom number generator that outputs the modulo of the
- * current time by 201. If 0 < n <= 101 then negate it. Otherwise return the
- * positive. This ensures the result is within the interval [-100, 100].
- * 
- * @author Andrew Bowler
- *
- */
+import java.util.Random;
+
 public class TimeRNG
 {
-  public TimeRNG()
+  private Random random;
+
+  public TimeRNG(Random random)
   {
-    // empty constructor
+    this.setRandom(new Random());
   }
 
-  /**
-   * @return A pseudorandom number calculated by taking the modulo of the
-   *         current time by 201 to fit the [-100, 100] interval.
-   */
-  public int getRandomNumberLargeInterval()
-  {
-    long currentTime = System.currentTimeMillis();
-    int result = (int) (currentTime % 201);
-    if (result <= 101)
-      return result;
-    else
-      return (result * -1);
-  }
-
-  /**
-   * 
-   * @return A pseudorandom number calculated by taking the modulo of the
-   *         current time by the length of the array.
-   */
   public int getRandomIndex(int[] arr)
   {
     long currentTime = System.currentTimeMillis();
     return (int) (currentTime % arr.length);
+  }
+
+  public int randInt(int min, int max)
+  {
+    int randomNum = getRandom().nextInt((max - min) + 1) + min;
+
+    return randomNum;
+  }
+
+  public Random getRandom()
+  {
+    return random;
+  }
+
+  public void setRandom(Random random)
+  {
+    this.random = random;
   }
 }

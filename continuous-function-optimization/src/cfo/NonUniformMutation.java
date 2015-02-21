@@ -9,7 +9,7 @@ public class NonUniformMutation extends MutationFunction
   public NonUniformMutation(int iterations, double b)
   {
     this.iterations = iterations;
-    this.currentIteration = 0;
+    this.currentIteration = 1;
     this.b = b;
   }
 
@@ -44,33 +44,33 @@ public class NonUniformMutation extends MutationFunction
   private int calculateNewGene(int old)
   {
     double tau = Math.random();
-    return deltaFunction(old, getCurrentIteration(), tau, getB());
+    double delta = deltaFunction(old, getCurrentIteration(), tau, getB());
+    setCurrentIteration(getCurrentIteration() + 1);
+    if (tau > 0.5000)
+      return round(old + delta);
+    else
+      return round(old - delta);
   }
 
-  private int deltaFunction(int old, int currentIteration, double tau, double b)
+  private double deltaFunction(int old, int currentIteration, double tau, double b)
   {
     double delta = 0.0;
-    int r = getR();
-    double secondPart = 1 - Math.pow(r, 1 - (currentIteration / getTotalIterations()));
+    double r = Math.random();
+    double iterationDivision = ((double) currentIteration) / getTotalIterations();
+    double secondPart = 1 - Math.pow(r, 1 - iterationDivision);
     int y = 0;
 
     if (tau >= 0.5000)
+    {
       y = 100 - old;
+      delta = y * Math.pow(secondPart, b);
+      return delta;
+    }
     else
+    {
       y = old + 100;
-
-    delta = y * Math.pow(secondPart, b);
-    double result = old + delta;
-    return round(result);
-  }
-
-  private int getR()
-  {
-    double random = Math.random();
-
-    if (random >= 0.5000)
-      return 1;
-    else
-      return 0;
+      delta = y * Math.pow(secondPart, b);
+      return delta;
+    }
   }
 }

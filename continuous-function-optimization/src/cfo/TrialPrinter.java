@@ -26,7 +26,7 @@ public class TrialPrinter
     FileWriter writer;
     try
     {
-      writer = new FileWriter(file);
+      writer = new FileWriter(getFile(), true);
       writer.write(x + "    " + fitnessValue + "\n");
       writer.close();
     }
@@ -46,6 +46,11 @@ public class TrialPrinter
     this.function = function;
   }
 
+  public File getFile()
+  {
+    return file;
+  }
+
   public String getTimeStamp()
   {
     return timeStamp;
@@ -53,7 +58,7 @@ public class TrialPrinter
 
   public void setTimeStamp()
   {
-    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH:mm:ss");
+    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd_HH_mm_ss");
     Date now = new Date();
     String strDate = sdfDate.format(now);
     this.timeStamp = strDate;
@@ -61,11 +66,11 @@ public class TrialPrinter
 
   private File generateTrialFile(OnePlusOneEvo function)
   {
+//    String path = "C:/School_Stuff/NatureInspiredOptimization/continuous-functional-optimization/continuous-function-optimization"
+//        + "/trials/" + function.getMutator().getClass().getSimpleName() + "/";
     String path = "trials/" + function.getMutator().getClass().getSimpleName() + "/";
     String timeStamp = getTimeStamp();
     String filename = path + timeStamp + ".txt";
-
-    return new File(filename);
+    return new File("test.txt");
   }
-
 }
