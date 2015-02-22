@@ -56,7 +56,7 @@ public class NonUniformMutation extends MutationFunction
   private double deltaFunction(double old, int currentIteration, double tau, double b)
   {
     double delta = 0.0;
-    double r = Math.random();
+    double r = getNumberUtils().getRandomDouble(0, 1);
     double iterationDivision = ((double) currentIteration) / getTotalIterations();
     double secondPart = 1 - Math.pow(r, 1 - iterationDivision);
     double y = 0;

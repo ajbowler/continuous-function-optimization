@@ -1,7 +1,6 @@
 package cfo;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class OnePlusOneEvo implements OptimizationFunction
 {
@@ -30,8 +29,8 @@ public class OnePlusOneEvo implements OptimizationFunction
   public void getSolution()
   {
     SphereFunction f = new SphereFunction(getDimensions());
+    
     double[] x = generateInitialSearchPoint(getDimensions());
-
     double fOfX = f.computeFitness(x);
 
     for (int i = 0; i < getTotalIterations(); i++)
@@ -42,7 +41,7 @@ public class OnePlusOneEvo implements OptimizationFunction
 
       if (fOfY < fOfX)
       {
-        x = y;
+        x = Arrays.copyOf(y, y.length);
         fOfX = fOfY;
       }
 

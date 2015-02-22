@@ -1,7 +1,5 @@
 package cfo;
 
-import java.util.Random;
-
 public class GaussianMutation extends MutationFunction
 {
   private double stepSize;
