@@ -69,7 +69,7 @@ public class TrialPrinter
     String path = "";
 
     if (oneFifth)
-      path = "Trials/1Fifth" + function.getMutator().getClass().getSimpleName() + "/";
+      path = "Trials/1Fifth/" + function.getMutator().getClass().getSimpleName() + "/";
     else
       path = "Trials/" + function.getMutator().getClass().getSimpleName() + "/";
     

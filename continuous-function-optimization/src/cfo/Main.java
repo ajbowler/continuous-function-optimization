@@ -23,6 +23,8 @@ public class Main
 
     System.out.println("Beginning tests...\n");
 
+    System.out.println("Beginning Non 1/5th Rule Tests...\n");
+
     System.out.println("Beginning Uniform Mutation Tests...\n");
     for (int i = 1; i <= 30; i++)
     {
@@ -137,7 +139,27 @@ public class Main
 
     System.out.println("Gaussian Mutation Tests finished.\n");
 
-    System.out.println("Tests complete. The data will be deleted upon re-run.");
+    System.out.println("Non 1/5th Rule Tests finished.\n");
+
+    System.out.println("Beginning 1/5th Rule Tests...\n");
+
+    System.out.println("Beginning Gaussian Mutation Tests...\n");
+
+    for (int i = 1; i <= 30; i++)
+    {
+      CFONumberUtils utils = new CFONumberUtils(new Random());
+      double initStepSize = utils.getRandomDouble(1, 100);
+      gaussianMutator = new GaussianMutation(5000, initStepSize, utils);
+      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, true, null, utils);
+      gaussianMutation.getSolution();
+      System.out.println(i + " file(s) created.");
+    }
+
+    System.out.println("Gaussian Mutation Tests finished.\n");
+
+    System.out.println("1/5th Rule Tests finished.");
+
+    System.out.println("Tests complete. The data will be deleted upon re-running the program.");
     System.out.println("If necessary, export the data files outside of the Eclipse project.");
   }
 
@@ -158,6 +180,8 @@ public class Main
       FileUtils.cleanDirectory(new File("Trials/GaussianMutation/05"));
       FileUtils.cleanDirectory(new File("Trials/GaussianMutation/1"));
       FileUtils.cleanDirectory(new File("Trials/GaussianMutation/10"));
+
+      FileUtils.cleanDirectory(new File("Trials/1Fifth/GaussianMutation"));
 
       System.out.println("Directories emptied.");
     }
