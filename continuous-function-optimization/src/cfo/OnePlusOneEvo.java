@@ -12,15 +12,16 @@ public class OnePlusOneEvo implements OptimizationFunction
   protected int iterations;
 
   protected int dimensions;
-  
+
   private Random random;
 
-  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions)
+  public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions, boolean oneFifth,
+      String bOrStepSize)
   {
     this.mutator = mutator;
     this.iterations = iterations;
     this.dimensions = dimensions;
-    this.trialPrinter = new TrialPrinter(this);
+    this.trialPrinter = new TrialPrinter(this, oneFifth, bOrStepSize);
     setRandom(new Random());
   }
 

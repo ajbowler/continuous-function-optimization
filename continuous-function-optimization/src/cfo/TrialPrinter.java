@@ -14,11 +14,11 @@ public class TrialPrinter
 
   private File file;
 
-  public TrialPrinter(OnePlusOneEvo function)
+  public TrialPrinter(OnePlusOneEvo function, boolean oneFifth, String bOrStepSize)
   {
     setTimeStamp();
     this.function = function;
-    this.file = generateTrialFile(function);
+    this.file = generateTrialFile(function, oneFifth, bOrStepSize);
   }
 
   public void writeTrial(String x, String fitnessValue)
@@ -58,19 +58,26 @@ public class TrialPrinter
 
   public void setTimeStamp()
   {
-    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd_HH_mm_ss");
+    SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH-mm-ss");
     Date now = new Date();
     String strDate = sdfDate.format(now);
     this.timeStamp = strDate;
   }
 
-  private File generateTrialFile(OnePlusOneEvo function)
+  private File generateTrialFile(OnePlusOneEvo function, boolean oneFifth, String bOrStepSize)
   {
-//    String path = "C:/School_Stuff/NatureInspiredOptimization/continuous-functional-optimization/continuous-function-optimization"
-//        + "/trials/" + function.getMutator().getClass().getSimpleName() + "/";
-    String path = "trials/" + function.getMutator().getClass().getSimpleName() + "/";
+    String path = "";
+
+    if (oneFifth)
+      path = "Trials/1Fifth" + function.getMutator().getClass().getSimpleName() + "/";
+    else
+      path = "Trials/" + function.getMutator().getClass().getSimpleName() + "/";
+    
+    if(bOrStepSize != null)
+      path += bOrStepSize + "/";
+
     String timeStamp = getTimeStamp();
     String filename = path + timeStamp + ".txt";
-    return new File("test.txt");
+    return new File(filename);
   }
 }
