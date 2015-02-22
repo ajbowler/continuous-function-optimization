@@ -19,6 +19,13 @@ public class GaussianMutation extends MutationFunction
       double gaussian = getNumberUtils().getRandom().nextGaussian();
       double mutationValue = getStepSize() * gaussian;
       parent[i] = parent[i] + mutationValue;
+
+      // Clip the values if they go out of bounds.
+      if (parent[i] > 100.0)
+        parent[i] = 100.0;
+
+      if (parent[i] < -100.0)
+        parent[i] = -100.0;
     }
     return parent;
   }

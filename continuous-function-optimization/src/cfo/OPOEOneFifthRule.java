@@ -1,5 +1,7 @@
 package cfo;
 
+import java.util.Arrays;
+
 public class OPOEOneFifthRule extends OnePlusOneEvo
 {
   private double stepSize;
@@ -17,18 +19,23 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
   {
     SphereFunction f = new SphereFunction(getDimensions());
     double[] x = generateInitialSearchPoint(getDimensions());
-    setStepSize(getNumberUtils().getRandomIndex(new double[101]));
+    setStepSize(getNumberUtils().getRandomDouble(1, 100));
 
     int good = 0;
     int bad = 0;
+
+    double fOfX = f.computeFitness(x);
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
       double[] y = getMutator().mutate(x);
 
-      if (f.computeFitness(y) < f.computeFitness(x))
+      double fOfY = f.computeFitness(y);
+
+      if (fOfY < fOfX)
       {
-        x = y;
+        x = Arrays.copyOf(y, y.length);
+        fOfX = fOfY;
         good++;
       }
       else
@@ -36,19 +43,24 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
 
       if ((good + bad) == getDimensions())
       {
-        if ((good / getDimensions()) > 0.20)
+        double gbRatio = ((double) good) / getDimensions();
+
+        if (gbRatio >= 0.20)
           setStepSize(getStepSize() * 2);
 
-        if ((good / getDimensions()) < 0.20)
+        else
           setStepSize(getStepSize() / 2);
 
         good = 0;
         bad = 0;
       }
-    }
 
-    // TODO: output results to file.
-    System.out.println(x + ", " + f.computeFitness(x));
+      // Format everything down to 3 decimal places for the data.
+      x = getNumberUtils().formatArray(x);
+      fOfX = getNumberUtils().formatDouble(fOfX);
+
+      getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
+    }
   }
 
   public double getStepSize()
