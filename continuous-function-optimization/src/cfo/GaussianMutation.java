@@ -13,14 +13,13 @@ public class GaussianMutation extends MutationFunction
   }
 
   @Override
-  public int[] mutate(int[] parent)
+  public double[] mutate(double[] parent)
   {
     Random random = new Random();
     for (int i = 0; i < parent.length; i++)
     {
       double gaussian = random.nextGaussian();
-      System.out.println(gaussian);
-      int mutationValue = this.round(getStepSize() * gaussian);
+      double mutationValue = getStepSize() * gaussian;
       parent[i] = parent[i] + mutationValue;
     }
     return parent;

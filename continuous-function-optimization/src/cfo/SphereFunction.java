@@ -19,9 +19,9 @@ public class SphereFunction
     this.dimension = dimension;
   }
 
-  public int computeFitness(int[] selection)
+  public double computeFitness(double[] selection)
   {
-    int sum = 0;
+    double sum = 0;
 
     for (int i = 0; i < getDimension(); i++)
     {

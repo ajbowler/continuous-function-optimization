@@ -14,9 +14,9 @@ public class NonUniformMutation extends MutationFunction
   }
 
   @Override
-  public int[] mutate(int[] parent)
+  public double[] mutate(double[] parent)
   {
-    int index = OptimizationFunction.rng.getRandomIndex(parent);
+    int index = OptimizationFunction.numberUtils.getRandomIndex(parent);
     parent[index] = calculateNewGene(parent[index]);
     return parent;
   }
@@ -41,24 +41,24 @@ public class NonUniformMutation extends MutationFunction
     this.b = b;
   }
 
-  private int calculateNewGene(int old)
+  private double calculateNewGene(double old)
   {
     double tau = Math.random();
     double delta = deltaFunction(old, getCurrentIteration(), tau, getB());
     setCurrentIteration(getCurrentIteration() + 1);
     if (tau > 0.5000)
-      return round(old + delta);
+      return old + delta;
     else
-      return round(old - delta);
+      return old - delta;
   }
 
-  private double deltaFunction(int old, int currentIteration, double tau, double b)
+  private double deltaFunction(double old, int currentIteration, double tau, double b)
   {
     double delta = 0.0;
     double r = Math.random();
     double iterationDivision = ((double) currentIteration) / getTotalIterations();
     double secondPart = 1 - Math.pow(r, 1 - iterationDivision);
-    int y = 0;
+    double y = 0;
 
     if (tau >= 0.5000)
     {

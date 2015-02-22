@@ -2,9 +2,9 @@ package cfo;
 
 public class OPOEOneFifthRule extends OnePlusOneEvo
 {
-  private int stepSize;
+  private double stepSize;
 
-  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, int stepSize,
+  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, double stepSize,
       String bOrStepSize)
   {
     super(mutator, dimensions, dimensions, true, bOrStepSize);
@@ -16,15 +16,15 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
   public void getSolution()
   {
     SphereFunction f = new SphereFunction(getDimensions());
-    int[] x = generateInitialSearchPoint(getDimensions());
-    setStepSize(OptimizationFunction.rng.getRandomIndex(new int[101]));
+    double[] x = generateInitialSearchPoint(getDimensions());
+    setStepSize(OptimizationFunction.numberUtils.getRandomIndex(new double[101]));
 
     int good = 0;
     int bad = 0;
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
-      int[] y = getMutator().mutate(x);
+      double[] y = getMutator().mutate(x);
 
       if (f.computeFitness(y) < f.computeFitness(x))
       {
@@ -51,12 +51,12 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
     System.out.println(x + ", " + f.computeFitness(x));
   }
 
-  public int getStepSize()
+  public double getStepSize()
   {
     return stepSize;
   }
 
-  public void setStepSize(int stepSize)
+  public void setStepSize(double stepSize)
   {
     this.stepSize = stepSize;
   }

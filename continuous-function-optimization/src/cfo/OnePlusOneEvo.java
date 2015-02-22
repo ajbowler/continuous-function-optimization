@@ -22,30 +22,34 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.iterations = iterations;
     this.dimensions = dimensions;
     this.trialPrinter = new TrialPrinter(this, oneFifth, bOrStepSize);
-    setRandom(new Random());
+    this.random = new Random();
   }
 
   @Override
   public void getSolution()
   {
     SphereFunction f = new SphereFunction(getDimensions());
-    int[] x = generateInitialSearchPoint(getDimensions());
+    double[] x = generateInitialSearchPoint(getDimensions());
 
-    int fOfX = f.computeFitness(x);
+    double fOfX = f.computeFitness(x);
 
     for (int i = 0; i < getTotalIterations(); i++)
     {
-      int[] y = getMutator().mutate(x);
+      double[] y = getMutator().mutate(x);
 
-      int fOfY = f.computeFitness(y);
+      double fOfY = f.computeFitness(y);
 
       if (fOfY < fOfX)
       {
         x = y;
         fOfX = fOfY;
       }
+      
+      // Format everything down to 3 decimal places for the data.
+      x = OptimizationFunction.numberUtils.formatArray(x);
+      fOfX = OptimizationFunction.numberUtils.formatDouble(fOfX);
 
-      getTrialPrinter().writeTrial(Arrays.toString(x), Integer.toString(fOfX));
+      getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
     }
   }
 
@@ -101,12 +105,12 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.random = random;
   }
 
-  protected int[] generateInitialSearchPoint(int dimensions)
+  protected double[] generateInitialSearchPoint(int dimensions)
   {
-    int[] x = new int[getDimensions()];
+    double[] x = new double[getDimensions()];
     for (int i = 0; i < x.length; i++)
     {
-      x[i] = OptimizationFunction.rng.randInt(-100, 100);
+      x[i] = OptimizationFunction.numberUtils.getRandomDouble();
     }
 
     return x;

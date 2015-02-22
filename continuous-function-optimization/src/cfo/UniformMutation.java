@@ -9,10 +9,10 @@ public class UniformMutation extends MutationFunction
   }
 
   @Override
-  public int[] mutate(int[] parent)
+  public double[] mutate(double[] parent)
   {
-    int index = OptimizationFunction.rng.getRandomIndex(parent);
-    parent[index] = OptimizationFunction.rng.randInt(-100, 100);
+    int index = OptimizationFunction.numberUtils.getRandomIndex(parent);
+    parent[index] = OptimizationFunction.numberUtils.getRandomDouble();
     return parent;
   }
 }

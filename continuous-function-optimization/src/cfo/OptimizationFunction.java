@@ -4,7 +4,7 @@ import java.util.Random;
 
 public interface OptimizationFunction
 {
-  public static final TimeRNG rng = new TimeRNG(new Random());
+  public static final CFONumberUtils numberUtils = new CFONumberUtils(new Random());
 
   public void getSolution();
   
