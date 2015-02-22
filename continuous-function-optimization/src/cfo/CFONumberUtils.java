@@ -9,7 +9,7 @@ public class CFONumberUtils
 
   public CFONumberUtils(Random random)
   {
-    this.setRandom(new Random());
+    this.random = random;
   }
 
   public int getRandomIndex(double[] arr)
@@ -18,9 +18,9 @@ public class CFONumberUtils
     return (int) (currentTime % arr.length);
   }
 
-  public double getRandomDouble()
+  public double getRandomDouble(double min, double max)
   {
-    return getRandom().nextDouble();
+    return min + (max - min) * getRandom().nextDouble();
   }
 
   public Random getRandom()

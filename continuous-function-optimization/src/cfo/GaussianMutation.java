@@ -6,19 +6,19 @@ public class GaussianMutation extends MutationFunction
 {
   private double stepSize;
 
-  public GaussianMutation(int iterations, double stepSize)
+  public GaussianMutation(int iterations, double stepSize, CFONumberUtils numberUtils)
   {
     this.iterations = iterations;
     this.stepSize = stepSize;
+    this.numberUtils = numberUtils;
   }
 
   @Override
   public double[] mutate(double[] parent)
   {
-    Random random = new Random();
     for (int i = 0; i < parent.length; i++)
     {
-      double gaussian = random.nextGaussian();
+      double gaussian = getNumberUtils().getRandom().nextGaussian();
       double mutationValue = getStepSize() * gaussian;
       parent[i] = parent[i] + mutationValue;
     }

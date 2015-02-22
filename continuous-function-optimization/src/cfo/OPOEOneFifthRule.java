@@ -4,10 +4,10 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
 {
   private double stepSize;
 
-  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions, double stepSize,
-      String bOrStepSize)
+  public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions,
+      double stepSize, String bOrStepSize, CFONumberUtils numberUtils)
   {
-    super(mutator, dimensions, dimensions, true, bOrStepSize);
+    super(mutator, dimensions, dimensions, true, bOrStepSize, numberUtils);
     this.stepSize = stepSize;
     this.trialPrinter = new TrialPrinter(this, true, bOrStepSize);
   }
@@ -17,7 +17,7 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
   {
     SphereFunction f = new SphereFunction(getDimensions());
     double[] x = generateInitialSearchPoint(getDimensions());
-    setStepSize(OptimizationFunction.numberUtils.getRandomIndex(new double[101]));
+    setStepSize(getNumberUtils().getRandomIndex(new double[101]));
 
     int good = 0;
     int bad = 0;

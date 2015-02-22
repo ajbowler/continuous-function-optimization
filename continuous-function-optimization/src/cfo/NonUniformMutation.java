@@ -6,17 +6,18 @@ public class NonUniformMutation extends MutationFunction
 
   private double b;
 
-  public NonUniformMutation(int iterations, double b)
+  public NonUniformMutation(int iterations, double b, CFONumberUtils numberUtils)
   {
     this.iterations = iterations;
     this.currentIteration = 1;
     this.b = b;
+    this.numberUtils = numberUtils;
   }
 
   @Override
   public double[] mutate(double[] parent)
   {
-    int index = OptimizationFunction.numberUtils.getRandomIndex(parent);
+    int index = getNumberUtils().getRandomIndex(parent);
     parent[index] = calculateNewGene(parent[index]);
     return parent;
   }

@@ -13,16 +13,17 @@ public class OnePlusOneEvo implements OptimizationFunction
 
   protected int dimensions;
 
-  private Random random;
+  private CFONumberUtils numberUtils;
 
   public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions, boolean oneFifth,
-      String bOrStepSize)
+      String bOrStepSize, CFONumberUtils numberUtils)
   {
     this.mutator = mutator;
     this.iterations = iterations;
     this.dimensions = dimensions;
     this.trialPrinter = new TrialPrinter(this, oneFifth, bOrStepSize);
-    this.random = new Random();
+    this.numberUtils = numberUtils;
+    this.mutator.setNumberUtils(numberUtils);
   }
 
   @Override
@@ -44,10 +45,10 @@ public class OnePlusOneEvo implements OptimizationFunction
         x = y;
         fOfX = fOfY;
       }
-      
+
       // Format everything down to 3 decimal places for the data.
-      x = OptimizationFunction.numberUtils.formatArray(x);
-      fOfX = OptimizationFunction.numberUtils.formatDouble(fOfX);
+      x = getNumberUtils().formatArray(x);
+      fOfX = getNumberUtils().formatDouble(fOfX);
 
       getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
     }
@@ -95,14 +96,14 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.trialPrinter = trialPrinter;
   }
 
-  public Random getRandom()
+  public CFONumberUtils getNumberUtils()
   {
-    return random;
+    return numberUtils;
   }
 
-  public void setRandom(Random random)
+  public void setNumberUtils(CFONumberUtils numberUtils)
   {
-    this.random = random;
+    this.numberUtils = numberUtils;
   }
 
   protected double[] generateInitialSearchPoint(int dimensions)
@@ -110,7 +111,7 @@ public class OnePlusOneEvo implements OptimizationFunction
     double[] x = new double[getDimensions()];
     for (int i = 0; i < x.length; i++)
     {
-      x[i] = OptimizationFunction.numberUtils.getRandomDouble();
+      x[i] = getNumberUtils().getRandomDouble(-100.0, 100.0);
     }
 
     return x;
