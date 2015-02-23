@@ -36,6 +36,21 @@ public class TrialPrinter
     }
   }
 
+  public void writeTrialOnlyFitness(String fitnessValue)
+  {
+    FileWriter writer;
+    try
+    {
+      writer = new FileWriter(getFile(), true);
+      writer.write(fitnessValue + "\n");
+      writer.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
+  }
+
   public OnePlusOneEvo getFunction()
   {
     return function;
@@ -72,8 +87,8 @@ public class TrialPrinter
       path = "Trials/1Fifth/" + function.getMutator().getClass().getSimpleName() + "/";
     else
       path = "Trials/" + function.getMutator().getClass().getSimpleName() + "/";
-    
-    if(bOrStepSize != null)
+
+    if (bOrStepSize != null)
       path += bOrStepSize + "/";
 
     String timeStamp = getTimeStamp();

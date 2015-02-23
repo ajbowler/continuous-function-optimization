@@ -7,9 +7,9 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
   private double stepSize;
 
   public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions,
-      double stepSize, String bOrStepSize, CFONumberUtils numberUtils)
+      double stepSize, String bOrStepSize, CFONumberUtils numberUtils, boolean writeIndividuals)
   {
-    super(mutator, dimensions, dimensions, true, bOrStepSize, numberUtils);
+    super(mutator, dimensions, dimensions, true, bOrStepSize, numberUtils, writeIndividuals);
     this.stepSize = stepSize;
     this.trialPrinter = new TrialPrinter(this, true, bOrStepSize);
   }
@@ -59,7 +59,10 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
       x = getNumberUtils().formatArray(x);
       fOfX = getNumberUtils().formatDouble(fOfX);
 
-      getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
+      if (doesWriteIndividuals())
+        getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
+      else
+        getTrialPrinter().writeTrialOnlyFitness(Double.toString(fOfX));
     }
   }
 

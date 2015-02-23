@@ -12,10 +12,12 @@ public class OnePlusOneEvo implements OptimizationFunction
 
   protected int dimensions;
 
+  protected boolean writeIndividuals;
+
   private CFONumberUtils numberUtils;
 
   public OnePlusOneEvo(MutationFunction mutator, int iterations, int dimensions, boolean oneFifth,
-      String bOrStepSize, CFONumberUtils numberUtils)
+      String bOrStepSize, CFONumberUtils numberUtils, boolean writeIndividuals)
   {
     this.mutator = mutator;
     this.iterations = iterations;
@@ -23,13 +25,14 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.trialPrinter = new TrialPrinter(this, oneFifth, bOrStepSize);
     this.numberUtils = numberUtils;
     this.mutator.setNumberUtils(numberUtils);
+    this.writeIndividuals = writeIndividuals;
   }
 
   @Override
   public void getSolution()
   {
     SphereFunction f = new SphereFunction(getDimensions());
-    
+
     double[] x = generateInitialSearchPoint(getDimensions());
     double fOfX = f.computeFitness(x);
 
@@ -49,7 +52,10 @@ public class OnePlusOneEvo implements OptimizationFunction
       x = getNumberUtils().formatArray(x);
       fOfX = getNumberUtils().formatDouble(fOfX);
 
-      getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
+      if (doesWriteIndividuals())
+        getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
+      else
+        getTrialPrinter().writeTrialOnlyFitness(Double.toString(fOfX));
     }
   }
 
@@ -103,6 +109,16 @@ public class OnePlusOneEvo implements OptimizationFunction
   public void setNumberUtils(CFONumberUtils numberUtils)
   {
     this.numberUtils = numberUtils;
+  }
+
+  public boolean doesWriteIndividuals()
+  {
+    return writeIndividuals;
+  }
+
+  public void setWriteIndividuals(boolean writeIndividuals)
+  {
+    this.writeIndividuals = writeIndividuals;
   }
 
   protected double[] generateInitialSearchPoint(int dimensions)

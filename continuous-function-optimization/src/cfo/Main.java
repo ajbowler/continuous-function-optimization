@@ -3,6 +3,7 @@ package cfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 
@@ -12,6 +13,8 @@ public class Main
   {
     // Purge the directories of old data.
     cleanDirectories();
+
+    boolean writeIndividuals = promptWritingPreference();
 
     OnePlusOneEvo uniformMutation;
     OnePlusOneEvo nonUniformMutation;
@@ -30,7 +33,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       uniformMutator = new UniformMutation(5000, utils);
-      uniformMutation = new OnePlusOneEvo(uniformMutator, 5000, 10, false, null, utils);
+      uniformMutation = new OnePlusOneEvo(uniformMutator, 5000, 10, false, null, utils,
+          writeIndividuals);
       uniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -43,7 +47,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 0.05, utils);
-      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "005", utils);
+      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "005", utils,
+          writeIndividuals);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -55,7 +60,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 1.0, utils);
-      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "1", utils);
+      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "1", utils,
+          writeIndividuals);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -67,7 +73,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 10.0, utils);
-      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "10", utils);
+      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "10", utils,
+          writeIndividuals);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -79,7 +86,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 20.0, utils);
-      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "20", utils);
+      nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "20", utils,
+          writeIndividuals);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -94,7 +102,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 0.05, utils);
-      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "005", utils);
+      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "005", utils,
+          writeIndividuals);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -106,7 +115,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 0.50, utils);
-      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "05", utils);
+      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "05", utils,
+          writeIndividuals);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -118,7 +128,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 1.0, utils);
-      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "1", utils);
+      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "1", utils,
+          writeIndividuals);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -130,7 +141,8 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 10.0, utils);
-      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "10", utils);
+      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "10", utils,
+          writeIndividuals);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -150,7 +162,8 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       double initStepSize = utils.getRandomDouble(1, 100);
       gaussianMutator = new GaussianMutation(5000, initStepSize, utils);
-      gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, true, null, utils);
+      gaussianMutation = new OPOEOneFifthRule(gaussianMutator, 5000, 10, initStepSize, null, utils,
+          writeIndividuals);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -161,6 +174,33 @@ public class Main
 
     System.out.println("Tests complete. The data will be deleted upon re-running the program.");
     System.out.println("If necessary, export the data files outside of the Eclipse project.");
+  }
+
+  private static boolean promptWritingPreference()
+  {
+    System.out.println("Would you like to have the individual and its genes recorded? "
+        + "Default is just the fitness value.");
+    System.out.println("Please answer \"y\" for individuals and fitness value, "
+        + "\"n\" for fitness value only.");
+
+    Scanner scanner = new Scanner(System.in);
+    String answer = scanner.next();
+    scanner.close();
+
+    if (answer.equals("y"))
+    {
+      System.out.println("Writing individuals with fitness values.");
+      return true;
+    }
+    else if (answer.equals("n"))
+    {
+      System.out.println("Writing fitness values only.");
+      return false;
+    }
+    else
+    {
+      throw new IllegalArgumentException("Please answer with \"y\" or \"n\".");
+    }
   }
 
   private static void cleanDirectories()
