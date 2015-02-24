@@ -35,7 +35,7 @@ public class GaussianMutation extends MutationFunction
     return stepSize;
   }
 
-  public void setStepSize(int stepSize)
+  public void setStepSize(double stepSize)
   {
     this.stepSize = stepSize;
   }

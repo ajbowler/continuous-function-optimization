@@ -7,9 +7,9 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
   private double stepSize;
 
   public OPOEOneFifthRule(MutationFunction mutator, int iterations, int dimensions,
-      double stepSize, String bOrStepSize, CFONumberUtils numberUtils, boolean writeIndividuals)
+      double stepSize, String bOrStepSize, CFONumberUtils numberUtils, int writeOption)
   {
-    super(mutator, dimensions, dimensions, true, bOrStepSize, numberUtils, writeIndividuals);
+    super(mutator, iterations, dimensions, true, bOrStepSize, numberUtils, writeOption);
     this.stepSize = stepSize;
     this.trialPrinter = new TrialPrinter(this, true, bOrStepSize);
   }
@@ -20,13 +20,14 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
     SphereFunction f = new SphereFunction(getDimensions());
     double[] x = generateInitialSearchPoint(getDimensions());
     setStepSize(getNumberUtils().getRandomDouble(1, 100));
+    ((GaussianMutation) getMutator()).setStepSize(this.getStepSize());
 
     int good = 0;
     int bad = 0;
 
     double fOfX = f.computeFitness(x);
 
-    for (int i = 0; i < getTotalIterations(); i++)
+    for (int i = 0; i < getTotalIterations(); i++, setCurrentIteration(i))
     {
       double[] y = getMutator().mutate(x);
 
@@ -46,11 +47,15 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
         double gbRatio = ((double) good) / getDimensions();
 
         if (gbRatio >= 0.20)
+        {
           setStepSize(getStepSize() * 2);
-
+          ((GaussianMutation) getMutator()).setStepSize(this.getStepSize());
+        }
         else
+        {
           setStepSize(getStepSize() / 2);
-
+          ((GaussianMutation) getMutator()).setStepSize(this.getStepSize());
+        }
         good = 0;
         bad = 0;
       }
@@ -59,7 +64,13 @@ public class OPOEOneFifthRule extends OnePlusOneEvo
       x = getNumberUtils().formatArray(x);
       fOfX = getNumberUtils().formatDouble(fOfX);
 
-      if (doesWriteIndividuals())
+      int option = getWriteOption();
+      if (option == 1)
+      {
+        getTrialPrinter()
+            .writeTrial(Integer.toString(getCurrentIteration()), Double.toString(fOfX));
+      }
+      else if (option == 2)
         getTrialPrinter().writeTrial(Arrays.toString(x), Double.toString(fOfX));
       else
         getTrialPrinter().writeTrialOnlyFitness(Double.toString(fOfX));

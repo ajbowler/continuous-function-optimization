@@ -14,7 +14,7 @@ public class Main
     // Purge the directories of old data.
     cleanDirectories();
 
-    boolean writeIndividuals = promptWritingPreference();
+    int writeOption = promptWritingPreference();
 
     OnePlusOneEvo uniformMutation;
     OnePlusOneEvo nonUniformMutation;
@@ -33,8 +33,7 @@ public class Main
     {
       CFONumberUtils utils = new CFONumberUtils(new Random());
       uniformMutator = new UniformMutation(5000, utils);
-      uniformMutation = new OnePlusOneEvo(uniformMutator, 5000, 10, false, null, utils,
-          writeIndividuals);
+      uniformMutation = new OnePlusOneEvo(uniformMutator, 5000, 10, false, null, utils, writeOption);
       uniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -48,7 +47,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 0.05, utils);
       nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "005", utils,
-          writeIndividuals);
+          writeOption);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -61,7 +60,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 1.0, utils);
       nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "1", utils,
-          writeIndividuals);
+          writeOption);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -74,7 +73,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 10.0, utils);
       nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "10", utils,
-          writeIndividuals);
+          writeOption);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -87,7 +86,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       nonUniformMutator = new NonUniformMutation(5000, 20.0, utils);
       nonUniformMutation = new OnePlusOneEvo(nonUniformMutator, 5000, 10, false, "20", utils,
-          writeIndividuals);
+          writeOption);
       nonUniformMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -103,7 +102,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 0.05, utils);
       gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "005", utils,
-          writeIndividuals);
+          writeOption);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -116,7 +115,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 0.50, utils);
       gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "05", utils,
-          writeIndividuals);
+          writeOption);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -129,7 +128,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 1.0, utils);
       gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "1", utils,
-          writeIndividuals);
+          writeOption);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -142,7 +141,7 @@ public class Main
       CFONumberUtils utils = new CFONumberUtils(new Random());
       gaussianMutator = new GaussianMutation(5000, 10.0, utils);
       gaussianMutation = new OnePlusOneEvo(gaussianMutator, 5000, 10, false, "10", utils,
-          writeIndividuals);
+          writeOption);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
@@ -163,44 +162,36 @@ public class Main
       double initStepSize = utils.getRandomDouble(1, 100);
       gaussianMutator = new GaussianMutation(5000, initStepSize, utils);
       gaussianMutation = new OPOEOneFifthRule(gaussianMutator, 5000, 10, initStepSize, null, utils,
-          writeIndividuals);
+          writeOption);
       gaussianMutation.getSolution();
       System.out.println(i + " file(s) created.");
     }
 
     System.out.println("Gaussian Mutation Tests finished.\n");
 
-    System.out.println("1/5th Rule Tests finished.");
+    System.out.println("1/5th Rule Tests finished.\n");
 
     System.out.println("Tests complete. The data will be deleted upon re-running the program.");
     System.out.println("If necessary, export the data files outside of the Eclipse project.");
   }
 
-  private static boolean promptWritingPreference()
+  private static int promptWritingPreference()
   {
-    System.out.println("Would you like to have the individual and its genes recorded? "
-        + "Default is just the fitness value.");
-    System.out.println("Please answer \"y\" for individuals and fitness value, "
-        + "\"n\" for fitness value only.");
+    System.out.println("Type the corresponding number to the desired output format.");
+    System.out.println("\t1: Iteration # and fitness value.");
+    System.out.println("\t2: Individual and fitness value.");
+    System.out.println("\t3: Fitness value only.");
 
     Scanner scanner = new Scanner(System.in);
     String answer = scanner.next();
     scanner.close();
 
-    if (answer.equals("y"))
-    {
-      System.out.println("Writing individuals with fitness values.");
-      return true;
-    }
-    else if (answer.equals("n"))
-    {
-      System.out.println("Writing fitness values only.");
-      return false;
-    }
+    int option = Integer.parseInt(answer);
+
+    if (option != 1 && option != 2 && option != 3)
+      throw new IllegalArgumentException("Please pick option 1, 2, or 3.");
     else
-    {
-      throw new IllegalArgumentException("Please answer with \"y\" or \"n\".");
-    }
+      return option;
   }
 
   private static void cleanDirectories()

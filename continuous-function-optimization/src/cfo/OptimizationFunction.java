@@ -7,4 +7,8 @@ public interface OptimizationFunction
   public int getTotalIterations();
 
   public void setTotalIterations(int iterations);
+  
+  public int getCurrentIteration();
+  
+  public void setCurrentIteration(int currentIteration);
 }

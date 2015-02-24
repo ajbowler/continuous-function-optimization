@@ -3,8 +3,10 @@ package cfo;
 public abstract class MutationFunction implements OptimizationFunction
 {
   protected int iterations;
-  
+
   protected CFONumberUtils numberUtils;
+
+  protected int currentIteration;
 
   @Override
   public void getSolution()
@@ -25,7 +27,19 @@ public abstract class MutationFunction implements OptimizationFunction
   {
     this.iterations = iterations;
   }
-  
+
+  @Override
+  public int getCurrentIteration()
+  {
+    return currentIteration;
+  }
+
+  @Override
+  public void setCurrentIteration(int currentIteration)
+  {
+    this.currentIteration = currentIteration;
+  }
+
   public CFONumberUtils getNumberUtils()
   {
     return numberUtils;
