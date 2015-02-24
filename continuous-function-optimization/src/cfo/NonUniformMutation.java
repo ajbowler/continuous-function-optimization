@@ -1,5 +1,11 @@
 package cfo;
 
+/**
+ * Non-Uniform Mutation Algorithm
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class NonUniformMutation extends MutationFunction
 {
   private int currentIteration;
@@ -14,6 +20,10 @@ public class NonUniformMutation extends MutationFunction
     this.numberUtils = numberUtils;
   }
 
+  /**
+   * Replaces a random index in the parent by generating a new value with the
+   * non-uniform mutation formula.
+   */
   @Override
   public double[] mutate(double[] parent)
   {

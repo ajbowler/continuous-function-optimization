@@ -1,5 +1,11 @@
 package cfo;
 
+/**
+ * Abstract class for all of the Mutation Functions
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public abstract class MutationFunction implements OptimizationFunction
 {
   protected int iterations;
@@ -11,7 +17,7 @@ public abstract class MutationFunction implements OptimizationFunction
   @Override
   public void getSolution()
   {
-    // do nothing
+    // do nothing, not used by these classes
   }
 
   public abstract double[] mutate(double[] x);

@@ -1,5 +1,11 @@
 package cfo;
 
+/**
+ * Gaussian Mutation Algorithm
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class GaussianMutation extends MutationFunction
 {
   private double stepSize;
@@ -11,6 +17,10 @@ public class GaussianMutation extends MutationFunction
     this.numberUtils = numberUtils;
   }
 
+  /**
+   * Mutates the provided individual by adding a randomly generated Gaussian
+   * value to each gene. Clips the gene within [-100, 100].
+   */
   @Override
   public double[] mutate(double[] parent)
   {

@@ -6,6 +6,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * A utility class that outputs data from the various genetic algorithms tests.
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class TrialPrinter
 {
   private String timeStamp;
@@ -21,6 +27,10 @@ public class TrialPrinter
     this.file = generateTrialFile(function, oneFifth, bOrStepSize);
   }
 
+  /**
+   * Writes either the individual array or the iteration number, along with the
+   * corresponding fitness value from the Sphere Function.
+   */
   public void writeTrial(String x, String fitnessValue)
   {
     FileWriter writer;
@@ -36,6 +46,9 @@ public class TrialPrinter
     }
   }
 
+  /**
+   * Writes the fitness value.
+   */
   public void writeTrialOnlyFitness(String fitnessValue)
   {
     FileWriter writer;
@@ -71,6 +84,9 @@ public class TrialPrinter
     return timeStamp;
   }
 
+  /**
+   * Generates the timestamp string for the file.
+   */
   public void setTimeStamp()
   {
     SimpleDateFormat sdfDate = new SimpleDateFormat("MM-dd HH-mm-ss");
@@ -79,6 +95,10 @@ public class TrialPrinter
     this.timeStamp = strDate;
   }
 
+  /**
+   * @return A .txt file with the current timestamp, and placed in the directory
+   *         that matches the genetic algorithm's class name.
+   */
   private File generateTrialFile(OnePlusOneEvo function, boolean oneFifth, String bOrStepSize)
   {
     String path = "";

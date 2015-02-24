@@ -7,6 +7,15 @@ import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 
+/**
+ * Runs 30 independent runs of 5000 iterations on the Uniform, Non-Uniform and
+ * Gaussian with different step sizes, and the Gaussian with the 1/5th rule and
+ * writes the data to each corresponding file. The user is prompted at the
+ * beginning for output options.
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class Main
 {
   public static void main(String[] args)
@@ -175,6 +184,9 @@ public class Main
     System.out.println("If necessary, export the data files outside of the Eclipse project.");
   }
 
+  /**
+   * @return The user's choice of output option.
+   */
   private static int promptWritingPreference()
   {
     System.out.println("Type the corresponding number to the desired output format.");
@@ -194,6 +206,9 @@ public class Main
       return option;
   }
 
+  /**
+   * Purges all directories of old data for a fresh test run.
+   */
   private static void cleanDirectories()
   {
     try

@@ -2,6 +2,13 @@ package cfo;
 
 import java.util.Arrays;
 
+/**
+ * A variant of the (1 +1) Evolution Genetic Algorithm that uses the 1/5th rule
+ * when determining the step size for the Gaussian Mutation Algorithm.
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class OPOEOneFifthRule extends OnePlusOneEvo
 {
   private double stepSize;

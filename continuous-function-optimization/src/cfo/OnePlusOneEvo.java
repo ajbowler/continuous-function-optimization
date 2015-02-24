@@ -2,6 +2,15 @@ package cfo;
 
 import java.util.Arrays;
 
+/**
+ * (1 + 1) Evolution Genetic Algorithm that generates a random individual and
+ * tests its fitness against the Sphere Function, mutating itself with the
+ * provided mutation algorithm with each generation in a number of provided
+ * iterations.
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class OnePlusOneEvo implements OptimizationFunction
 {
   protected MutationFunction mutator;
@@ -31,6 +40,10 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.writeOption = writeOption;
   }
 
+  /**
+   * Generates the fitness value for each individual through each iteration and
+   * writes it to the file for the instance of this class.
+   */
   @Override
   public void getSolution()
   {
@@ -142,6 +155,10 @@ public class OnePlusOneEvo implements OptimizationFunction
     this.writeOption = writeOption;
   }
 
+  /**
+   * @return A randomly generated individual with the number of provided
+   *         dimensions.
+   */
   protected double[] generateInitialSearchPoint(int dimensions)
   {
     double[] x = new double[getDimensions()];

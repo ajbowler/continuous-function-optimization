@@ -1,5 +1,12 @@
 package cfo;
 
+/**
+ * The Sphere Function is an nature-inspired optimization function that computes
+ * the individual's "fitness".
+ * 
+ * @author Andrew Bowler
+ *
+ */
 public class SphereFunction
 {
   private int dimension;
@@ -19,6 +26,10 @@ public class SphereFunction
     this.dimension = dimension;
   }
 
+  /**
+   * @return A fitness value calculated by summing the squares of each gene in
+   *         an individual.
+   */
   public double computeFitness(double[] selection)
   {
     double sum = 0;
