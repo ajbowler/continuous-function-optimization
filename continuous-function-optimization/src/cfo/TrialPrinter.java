@@ -37,7 +37,7 @@ public class TrialPrinter
     try
     {
       writer = new FileWriter(getFile(), true);
-      writer.write(x + "    " + fitnessValue + "\n");
+      writer.write(x + "\t" + fitnessValue + "\n");
       writer.close();
     }
     catch (IOException e)
