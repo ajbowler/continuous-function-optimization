@@ -12,19 +12,18 @@ import java.util.Date;
  * @author Andrew Bowler
  *
  */
-public class TrialPrinter
+public abstract class TrialPrinter
 {
   private String timeStamp;
 
-  private OnePlusOneEvo function;
+  private Object object;
 
   private File file;
 
-  public TrialPrinter(OnePlusOneEvo function, boolean oneFifth, String bOrStepSize)
+  public TrialPrinter(Object function, boolean oneFifth, String bOrStepSize)
   {
     setTimeStamp();
-    this.function = function;
-    this.file = generateTrialFile(function, oneFifth, bOrStepSize);
+    this.object = function;
   }
 
   /**
@@ -64,14 +63,14 @@ public class TrialPrinter
     }
   }
 
-  public OnePlusOneEvo getFunction()
+  public Object getFunction()
   {
-    return function;
+    return object;
   }
 
-  public void setFunction(OnePlusOneEvo function)
+  public void setObject(Object obj)
   {
-    this.function = function;
+    this.object = obj;
   }
 
   public File getFile()
@@ -94,25 +93,9 @@ public class TrialPrinter
     String strDate = sdfDate.format(now);
     this.timeStamp = strDate;
   }
-
+  
   /**
-   * @return A .txt file with the current timestamp, and placed in the directory
-   *         that matches the genetic algorithm's class name.
+   * Generates the file.
    */
-  private File generateTrialFile(OnePlusOneEvo function, boolean oneFifth, String bOrStepSize)
-  {
-    String path = "";
-
-    if (oneFifth)
-      path = "Trials/1Fifth/" + function.getMutator().getClass().getSimpleName() + "/";
-    else
-      path = "Trials/" + function.getMutator().getClass().getSimpleName() + "/";
-
-    if (bOrStepSize != null)
-      path += bOrStepSize + "/";
-
-    String timeStamp = getTimeStamp();
-    String filename = path + timeStamp + ".txt";
-    return new File(filename);
-  }
+  public abstract File generateFile();
 }
